@@ -1,0 +1,10 @@
+[package]
+name = "day1"
+version = "0.1.0"
+authors = ["Max Dymond <max.dymond@metaswitch.com>"]
+edition = "2018"
+publish = false
+
+[dependencies]
+anyhow = "1.0.34"
+thiserror = "1.0.22"
