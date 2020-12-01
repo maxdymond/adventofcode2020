@@ -1,24 +1,5 @@
+use aoc2020::read_numbers;
 use std::collections::HashSet;
-use std::io::{self, BufRead};
-use std::path::Path;
-use std::{fs::File, num::ParseIntError};
-
-#[derive(thiserror::Error, Debug)]
-enum DayError {
-    #[error("IO error")]
-    IOError(#[from] io::Error),
-
-    #[error("Parse Error")]
-    ParseError(#[from] ParseIntError),
-}
-
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
-}
 
 fn part1(line_values: &Vec<i32>, target: &i32) {
     let mut values = HashSet::new();
@@ -66,13 +47,7 @@ fn part2(line_values: &Vec<i32>, target: &i32) {
 }
 
 fn main() -> Result<(), anyhow::Error> {
-    let lines = read_lines("./input.txt")?;
-    let values = lines
-        .map(|res| {
-            res.map_err(DayError::IOError)
-                .and_then(|v| v.parse::<i32>().map_err(DayError::ParseError))
-        })
-        .collect::<Result<Vec<i32>, DayError>>()?;
+    let values: Vec<i32> = read_numbers("./input/1")?;
     let target = 2020;
 
     // Run part1
