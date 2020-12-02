@@ -36,10 +36,10 @@ where
 pub fn read_map<P, T, F>(filename: P, map: F) -> Result<Vec<T>, AocError>
 where
     P: AsRef<Path>,
-    F: Copy + FnOnce(String) -> Result<T, AocError>,
+    F: Fn(String) -> Result<T, AocError>,
 {
     let lines = read_lines(filename)?;
     lines
-        .map(|res| res.map_err(AocError::IOError).and_then(map))
+        .map(|res| res.map_err(AocError::IOError).and_then(&map))
         .collect::<Result<Vec<T>, AocError>>()
 }
