@@ -27,13 +27,19 @@ where
     P: AsRef<Path>,
     T: std::str::FromStr,
 {
+    read_map(filename, |v| {
+        v.parse::<T>()
+            .map_err(|_| AocError::GenericError("Failed to parse line".to_string()))
+    })
+}
+
+pub fn read_map<P, T, F>(filename: P, map: F) -> Result<Vec<T>, AocError>
+where
+    P: AsRef<Path>,
+    F: Copy + FnOnce(String) -> Result<T, AocError>,
+{
     let lines = read_lines(filename)?;
     lines
-        .map(|res| {
-            res.map_err(AocError::IOError).and_then(|v| {
-                v.parse::<T>()
-                    .map_err(|_| AocError::GenericError("Failed to parse line".to_string()))
-            })
-        })
+        .map(|res| res.map_err(AocError::IOError).and_then(map))
         .collect::<Result<Vec<T>, AocError>>()
 }
