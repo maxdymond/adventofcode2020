@@ -1,27 +1,17 @@
 use aoc2020::read_map;
 
-fn run_map_vector(map: &Vec<Vec<char>>, x_inc: usize, y_inc: usize) -> u32 {
-    let width = map[0].len();
-    let mut trees = 0;
-    let mut x = 0;
-
-    for line in map.into_iter().step_by(y_inc) {
-        if line[x] == '#' {
-            trees += 1;
-        }
-
-        // Move the X parameter along by x_inc, but modulus by the width of the
-        // map to wrap around when we get to the edge.
-        x = (x + x_inc) % width;
-    }
-    trees
+fn run_map_vector(map: &[Vec<usize>], x_inc: usize, y_inc: usize) -> usize {
+    map.iter()
+        .step_by(y_inc)
+        .zip((0..).step_by(x_inc))
+        .fold(0, |acc, (row, x)| acc + row[x % row.len()])
 }
 
-fn part1(map: &Vec<Vec<char>>) {
+fn part1(map: &[Vec<usize>]) {
     println!("Part 1: encountered {} trees", run_map_vector(map, 3, 1));
 }
 
-fn part2(map: &Vec<Vec<char>>) {
+fn part2(map: &[Vec<usize>]) {
     println!(
         "Part 2: solution {}",
         run_map_vector(map, 1, 1)
@@ -34,8 +24,7 @@ fn part2(map: &Vec<Vec<char>>) {
 
 fn main() -> Result<(), anyhow::Error> {
     let map = read_map("./input/3", |v| {
-        let vals: Vec<char> = v.chars().collect();
-        Ok(vals)
+        Ok(v.chars().map(|c| if c == '#' { 1 } else { 0 }).collect())
     })?;
 
     part1(&map);

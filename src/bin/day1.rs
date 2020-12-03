@@ -1,7 +1,7 @@
 use aoc2020::read_numbers;
 use std::collections::HashSet;
 
-fn part1(line_values: &Vec<i32>, target: &i32) {
+fn part1(line_values: &[i32], target: &i32) {
     let mut values = HashSet::new();
     for value in line_values {
         // Subtract the value from the target. If it exists in the hashset
@@ -22,7 +22,7 @@ fn part1(line_values: &Vec<i32>, target: &i32) {
     }
 }
 
-fn part2(line_values: &Vec<i32>, target: &i32) {
+fn part2(line_values: &[i32], target: &i32) {
     let num_values = line_values.len();
     for ii in 0..(num_values - 2) {
         for jj in (ii + 1)..(num_values - 1) {
