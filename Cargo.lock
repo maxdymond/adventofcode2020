@@ -20,10 +20,18 @@ name = "aoc2020"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "itertools",
  "recap",
+ "regex",
  "serde",
  "thiserror",
 ]
+
+[[package]]
+name = "either"
+version = "1.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
 
 [[package]]
 name = "envy"
@@ -32,6 +40,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f938a4abd5b75fe3737902dbc2e79ca142cc1526827a9e40b829a086758531a9"
 dependencies = [
  "serde",
+]
+
+[[package]]
+name = "itertools"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "284f18f85651fe11e8a991b2adb42cb078325c996ed026d994719efcfca1d54b"
+dependencies = [
+ "either",
 ]
 
 [[package]]

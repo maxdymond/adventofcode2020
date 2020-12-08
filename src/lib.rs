@@ -43,3 +43,13 @@ where
         .map(|res| res.map_err(AocError::IOError).and_then(&map))
         .collect::<Result<Vec<T>, AocError>>()
 }
+
+pub fn read_split<P>(filename: P, pattern: &str) -> Result<Vec<String>, AocError>
+where
+    P: AsRef<Path>,
+{
+    Ok(std::fs::read_to_string(filename)?
+        .split(pattern)
+        .map(String::from)
+        .collect::<Vec<String>>())
+}
